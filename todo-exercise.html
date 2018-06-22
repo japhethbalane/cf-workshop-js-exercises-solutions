@@ -84,7 +84,7 @@
 		</ul>
 
 		<form id="add-todo" v-on:submit.prevent="addTodo">
-			<input id="add-todo-input" type="text" placeholder="what will i do?">
+			<input id="add-todo-input" type="text" placeholder="what will i do?" v-model="todo">
 			<button id="add-todo-button">Add</button>
 		</form>
 
@@ -99,15 +99,19 @@
 		var todoList = new Vue({
 			el: '#todo-list',
 			data: {
-				count: 0,
-				todos: []
+				todos: [],
+				todo: ''
+			},
+			computed: {
+				count: function() {
+					return this.todos.length
+				}
 			},
 			methods: {
 				addTodo: function() {
-					var todo = document.querySelector('#add-todo-input').value;
-					if (todo !== '') {
-						this.todos.push(todo);
-						document.querySelector('#add-todo-input').value = '';
+					if (this.todo !== '') {
+						this.todos.push(this.todo);
+						this.todo = '';
 						this.count++;
 					}
 				}

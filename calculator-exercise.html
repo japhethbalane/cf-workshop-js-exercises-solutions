@@ -55,22 +55,22 @@
 		<div id="result">
 			<span>{{ arithString }}</span>
 		</div>
-		<button class="operator" :disabled="isOperatorDisabled" @click="handleOperatorClick($event)">/</button>
-		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">7</button>
-		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">8</button>
-		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">9</button>
-		<button class="operator" :disabled="isOperatorDisabled" @click="handleOperatorClick($event)">*</button>
-		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">4</button>
-		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">5</button>
-		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">6</button>
-		<button class="operator" :disabled="isOperatorDisabled" @click="handleOperatorClick($event)">-</button>
-		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">1</button>
-		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">2</button>
-		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">3</button>
-		<button class="operator" :disabled="isOperatorDisabled" @click="handleOperatorClick($event)">+</button>
-		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">0</button>
-		<button class="clear" @click="handleClearClick($event)">c</button>
-		<button class="equal" @click="handleEqualsClick($event)">=</button>
+		<button class="operator" :disabled="isOperatorDisabled" @click="handleOperatorClick">/</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick">7</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick">8</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick">9</button>
+		<button class="operator" :disabled="isOperatorDisabled" @click="handleOperatorClick">*</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick">4</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick">5</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick">6</button>
+		<button class="operator" :disabled="isOperatorDisabled" @click="handleOperatorClick">-</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick">1</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick">2</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick">3</button>
+		<button class="operator" :disabled="isOperatorDisabled" @click="handleOperatorClick">+</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick">0</button>
+		<button class="clear" @click="handleClearClick">c</button>
+		<button class="equal" @click="handleEqualsClick">=</button>
 		</div>
 	</div>
 
@@ -88,24 +88,24 @@
 			},
 			methods: {
 				handleValueClick: function(event) {
-					this.arithString += event.path[0].innerText;
-					event.path[0].blur();
+					this.arithString += event.target.innerText;
+					event.target.blur();
 				},
 				handleOperatorClick: function(event) {
-					this.arithString += ' ' + event.path[0].innerText + ' ';
+					this.arithString += ' ' + event.target.innerText + ' ';
 					this.isOperatorDisabled = true;
 					this.isValueDisabled = false;
-					event.path[0].blur();
+					event.target.blur();
 				},
 				handleClearClick: function(event) {
 					this.arithString = '0';
 					this.isValueDisabled = false;
 					this.isOperatorDisabled = false;
-					event.path[0].blur();
+					event.target.blur();
 				},
-				handleEqualsClick: function($event) {
+				handleEqualsClick: function(event) {
 					this.computeResult();
-					event.path[0].blur();
+					event.target.blur();
 				},
 				computeResult: function() {
 					this.arithString = eval(this.arithString);
