@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Todo List</title>
+	<style>
+		body {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: skyblue;
+			padding: 0;
+			margin: 0;
+		}
+		body > div {
+			background-color: white;
+			min-height: 100vh;
+			padding: 20px 100px;
+		}
+		input {
+			padding: 10px 20px;
+		}
+		ul {
+			padding: 0;
+		}
+		li {
+			border: 1px solid grey;
+			list-style: none;
+			padding: 10px 20px;
+			margin: 5px auto;
+		}
+		#add-todo-button {
+			background: lightblue;
+			border: none;
+			border-radius: 4px;
+			padding: 15px;
+			outline: none;
+		}
+
+		#add-todo-button:hover {
+			background: dodgerblue;
+			color: white;
+		}
+
+		#add-todo-button:active {
+			background: navy;
+			color: white;
+			outline: none;
+		}
+
+		#add-todo-input {
+			border: none;
+			border-radius: 4px;
+			background: #f0f0f0;
+			padding: 15px;
+			outline: none;
+		}
+
+		#add-todo-input:hover {
+			background: #f7f7f7;
+		}
+
+		#add-todo-input:focus {
+			background: #f7f7f7;
+			color: black;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="todo-list">	
+
+		<h1 id="title">My Todo List</h1>
+
+		<div id="todo-count">
+			<span v-if="count === 0">my list is currently <b>empty</b></span>
+			<span v-else-if="count === 1">there is only <b>{{ count }}</b> item in my list</span>
+			<span v-else>there are <b>{{ count }}</b> items in my list</span>
+		</div>
+
+		<ul id="list-elem">
+			<li v-for="todo in todos">
+				{{ todo }}
+			</li>
+		</ul>
+
+		<form id="add-todo" v-on:submit.prevent="addTodo">
+			<input id="add-todo-input" type="text" placeholder="what will i do?">
+			<button id="add-todo-button">Add</button>
+		</form>
+
+	</div>
+
+	<!-- vue -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<!-- my script -->
+	<script>
+
+		var todoList = new Vue({
+			el: '#todo-list',
+			data: {
+				count: 0,
+				todos: []
+			},
+			methods: {
+				addTodo: function() {
+					var todo = document.querySelector('#add-todo-input').value;
+					if (todo !== '') {
+						this.todos.push(todo);
+						document.querySelector('#add-todo-input').value = '';
+						this.count++;
+					}
+				}
+			}
+		});
+
+	</script>
+</body>
+</html>

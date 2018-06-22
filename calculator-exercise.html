@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Calculator</title>
+	<style>
+		body {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+		}
+		#calculator {
+			display: flex;
+			flex-wrap: wrap;
+			width: 240px;
+			background-color: skyblue;
+			padding: 20px;
+			border-radius: 5px;
+		}
+		#calculator > button {
+			width: 50px;
+			height: 50px;
+			margin: 5px;
+			border-radius: 5px;
+		}
+		#result {
+			width: 168px;
+			height: 57px;
+			margin: 1px 5px;
+			padding: 0 1px;
+			background-color: white;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			border-radius: 2px;
+		}
+		#result > span {
+			margin: auto 10px;
+		}
+		.operator, .clear, .equal {
+			background-color: white;
+		}
+		p {
+			padding: 0;
+			margin: 5px auto 0 auto;
+			color: white;
+			font-style: italic;
+		}
+	</style>
+</head>
+<body>
+
+
+	<div id="calculator">
+		<div id="result">
+			<span>{{ arithString }}</span>
+		</div>
+		<button class="operator" :disabled="isOperatorDisabled" @click="handleOperatorClick($event)">/</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">7</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">8</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">9</button>
+		<button class="operator" :disabled="isOperatorDisabled" @click="handleOperatorClick($event)">*</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">4</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">5</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">6</button>
+		<button class="operator" :disabled="isOperatorDisabled" @click="handleOperatorClick($event)">-</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">1</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">2</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">3</button>
+		<button class="operator" :disabled="isOperatorDisabled" @click="handleOperatorClick($event)">+</button>
+		<button class="value" :disabled="isValueDisabled" @click="handleValueClick($event)">0</button>
+		<button class="clear" @click="handleClearClick($event)">c</button>
+		<button class="equal" @click="handleEqualsClick($event)">=</button>
+		</div>
+	</div>
+
+	<!-- vue -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<!-- my script -->
+	<script>
+		var calcElem = new Vue({
+			el: '#calculator',
+			data: {
+				arithString: '0',
+				isValueDisabled: false,
+				isOperatorDisabled: false,
+			},
+			methods: {
+				handleValueClick: function(event) {
+					this.arithString += event.path[0].innerText;
+					event.path[0].blur();
+				},
+				handleOperatorClick: function(event) {
+					this.arithString += ' ' + event.path[0].innerText + ' ';
+					this.isOperatorDisabled = true;
+					this.isValueDisabled = false;
+					event.path[0].blur();
+				},
+				handleClearClick: function(event) {
+					this.arithString = '0';
+					this.isValueDisabled = false;
+					this.isOperatorDisabled = false;
+					event.path[0].blur();
+				},
+				handleEqualsClick: function($event) {
+					this.computeResult();
+					event.path[0].blur();
+				},
+				computeResult: function() {
+					this.arithString = eval(this.arithString);
+					this.isValueDisabled = true;
+					this.isOperatorDisabled = false;
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>
